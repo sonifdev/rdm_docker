@@ -11,10 +11,14 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 # Copy your app
 COPY ioncube.so /usr/local/lib/php/extensions/no-debug-non-zts-20170718/
-COPY RDMhosting/ /var/www/html/
+COPY RDMhosting/ /var/www/html
+
+# Set working directory
+WORKDIR /var/www/html
 
 # Set correct permissions
-RUN chown -R www-data:www-data /var/www/html
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html
 
 # Install ionCube Loader
 RUN echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20170718/ioncube.so" > /usr/local/etc/php/conf.d/00-ioncube.ini
