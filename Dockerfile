@@ -11,14 +11,21 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 # Copy your app
 COPY ioncube.so /usr/local/lib/php/extensions/no-debug-non-zts-20170718/
-COPY RDMhosting/ /var/www/html
+COPY RDMhosting/ /var/www/html/
 
 # Set working directory
 WORKDIR /var/www/html
 
-# Set correct permissions
+# Enable Apache mod_rewrite (optional but common)
+RUN a2enmod rewrite
+
+# Apache recommended permissions
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
+    && find /var/www/html -type d -exec chmod 755 {} \; \
+    && find /var/www/html -type f -exec chmod 644 {} \;
+
+# Configure Apache for CodeIgniter (AllowOverride)
+RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
 
 # Install ionCube Loader
 RUN echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20170718/ioncube.so" > /usr/local/etc/php/conf.d/00-ioncube.ini
@@ -26,8 +33,7 @@ RUN echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20170718
 # Enable allow_url_fopen
 RUN echo "allow_url_fopen=On" > /usr/local/etc/php/conf.d/allow_url_fopen.ini
 
-# Enable Apache mod_rewrite (optional but common)
-RUN a2enmod rewrite
+
 
 EXPOSE 80
 
