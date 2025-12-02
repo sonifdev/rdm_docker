@@ -1,11 +1,12 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-$host = "db";
-$databaseuser = "rdm_user";
-$databasename = "rdm";
-$dbpassword = "rdm_pass";
-define("DB_SERVER",$host);
-define("DB_USERNAME",$databaseuser);
-define("DB_PASSWORD",$dbpassword);
-define("DB_DATABASE",$databasename);
+// defined('BASEPATH') OR exit('No direct script access allowed');
+// $host = "db";
+// $databaseuser = "rdm_user";
+// $databasename = "rdm";
+// $dbpassword = "rdm_pass";
+// define("DB_SERVER",$host);
+// define("DB_USERNAME",$databaseuser);
+// define("DB_PASSWORD",$dbpassword);
+// define("DB_DATABASE",$databasename);
+
 ?>
